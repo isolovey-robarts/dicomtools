@@ -5,4 +5,4 @@ popd > /dev/null
 
 source $(which virtualenvwrapper.sh)
 workon analysis
-${SCRIPTPATH}/dicomattribute.py "$@"
+${SCRIPTPATH}/dicomdiff.py "$@"
