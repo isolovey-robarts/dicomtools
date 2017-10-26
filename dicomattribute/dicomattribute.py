@@ -14,13 +14,16 @@ class DicomAttribute(object):
 
     def process(self):
         if self._attribute is None:
+            print self._dicom_object.file_meta
             print self._dicom_object
         else:
             for attribute in self._attribute:
-                if hasattr(self._dicom_object, attribute):
-                    print "{0} [{1}]\t\t\t: {2}".format(
-                        dicom.tag.BaseTag(dicom.datadict.tag_for_name(attribute)).__repr__(),
-                        attribute, getattr(self._dicom_object, attribute))
+                for x in [self._dicom_object, self._dicom_object.file_meta]:
+                    if hasattr(x, attribute):
+                        print "{0} [{1}]\t\t\t: {2}".format(
+                            dicom.tag.BaseTag(dicom.datadict.tag_for_name(attribute)).__repr__(),
+                            attribute, getattr(x, attribute))
+                        break
                 else:
                     warnings.warn("Could not find attribute {0}".format(attribute))
 
