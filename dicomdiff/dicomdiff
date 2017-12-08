@@ -3,6 +3,4 @@ pushd `dirname $(readlink $0)` > /dev/null
 SCRIPTPATH=$(pwd -P)
 popd > /dev/null
 
-source $(which virtualenvwrapper.sh)
-workon analysis
-${SCRIPTPATH}/dicomdiff.py "$@"
+diff <(dicomattribute ${1}) <(dicomattribute ${2})
