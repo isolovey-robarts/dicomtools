@@ -11,7 +11,14 @@
 Installation
 ============
 
-One of:
+1. Create a virtual environment with `virtualenv`/`virtualenvwrapper` and install dependencies:
+
+```
+mkvirtualenv -p python3 -a . dicomtools
+pip install -r requirements.txt
+```
+
+2. Put the bash scripts on your PATH. One of:
 
  - `ln -s dicomattribute/dicomattribute /somewhere/on/my/system/path/dicomattribute && ln -s dicomdiff/dicomdiff /somewhere/on/my/system/path/dicomdiff`
  

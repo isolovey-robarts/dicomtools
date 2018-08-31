@@ -4,5 +4,5 @@ SCRIPTPATH=$(pwd -P)
 popd > /dev/null
 
 source $(which virtualenvwrapper.sh)
-workon analysis
+workon dicomtools
 ${SCRIPTPATH}/dicomattribute.py "$@"
