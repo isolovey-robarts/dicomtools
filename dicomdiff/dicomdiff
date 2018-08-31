@@ -3,4 +3,4 @@ pushd `dirname $(readlink $0)` > /dev/null
 SCRIPTPATH=$(pwd -P)
 popd > /dev/null
 
-diff <(dicomattribute ${1}) <(dicomattribute ${2})
+diff <(dicomattribute "${1}") <(dicomattribute "${2}")
