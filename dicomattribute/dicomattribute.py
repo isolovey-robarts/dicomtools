@@ -9,15 +9,18 @@ from pathlib import Path
 
 class DicomAttribute(object):
 
-    def __init__(self, dicom_file_path, attribute):
-        self._dicom_object = pydicom.read_file(
+    def __init__(self, dicom_file_path, attribute, ignore):
+        self._dicom_object = pydicom.dcmread(
             open(dicom_file_path.absolute(), 'rb'),
             stop_before_pixels=True,
         )
         self._attribute = attribute
+        self._ignore = ignore
 
     def process(self):
         if self._attribute is None:
+            [delattr(self._dicom_object, i) for i in self._ignore if hasattr(self._dicom_object, i)]
+            [delattr(self._dicom_object.file_meta, i) for i in self._ignore if hasattr(self._dicom_object.file_meta, i)]
             print(self._dicom_object.file_meta)
             print(self._dicom_object)
         else:
@@ -45,6 +48,8 @@ class DicomAttributeArgParser(argparse.ArgumentParser):
         Dicom attribute extraction
         ''')
         self.add_argument("-a", "--attribute", help="Dicom attribute to display", action='append',
+                          default=None)
+        self.add_argument("-i", "--ignore", help="Dicom attribute to ignore", action='append',
                           default=None)
         self.add_argument("dicom_file_path", help="Path to Dicom file", type=Path)
 

@@ -6,4 +6,4 @@ popd > /dev/null
 source $(readlink -e $(dirname $(which conda))/../etc/profile.d/conda.sh)
 
 conda activate dicomtools
-${SCRIPTPATH}/dicomattribute.py "$@"
+${SCRIPTPATH}/niftidiff.py "$@"
