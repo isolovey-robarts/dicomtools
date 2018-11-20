@@ -7,10 +7,6 @@ import argparse
 
 from pathlib import Path
 
-from colorama import init
-init(autoreset=True)
-from colorama import Fore, Back, Style
-
 class DicomAttribute(object):
 
     def __init__(self, nifti_file_1, nifti_file_2):
@@ -34,7 +30,7 @@ class DicomAttribute(object):
             d1 = d1.flatten()
             d2 = d2.flatten()
             elems_eq = np.all(d1 == d2)
-            print('all elements equal? {}'.format(colored(Fore.REDelems_eq))
+            print('all elements equal? {}'.format(elems_eq))
             diff = np.subtract(d1, d2)
             nz = np.logical_and(
                 d1 != 0,
