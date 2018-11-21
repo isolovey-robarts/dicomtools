@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
-pushd `dirname $(readlink $0)` > /dev/null
-SCRIPTPATH=$(pwd -P)
-popd > /dev/null
+SCRIPTPATH=$(dirname $(readlink $(which dicomattribute)))
 
-source $(readlink -e $(dirname $(which conda))/../etc/profile.d/conda.sh)
+source $(dirname $(which conda))/../etc/profile.d/conda.sh
+
+conda env list |grep dicomtools >/dev/null
+create_conda_env=$?
+if [ $create_conda_env -eq 1 ]; then
+  conda create -y -n dicomtools python=3.6
+  conda activate dicomtools
+  pip install -r ${SCRIPTPATH}/../requirements.txt
+fi
 
 conda activate dicomtools
 ${SCRIPTPATH}/dicomattribute.py "$@"
