@@ -19,8 +19,9 @@ class DicomAttribute(object):
 
     def process(self):
         if self._attribute is None:
-            [delattr(self._dicom_object, i) for i in self._ignore if hasattr(self._dicom_object, i)]
-            [delattr(self._dicom_object.file_meta, i) for i in self._ignore if hasattr(self._dicom_object.file_meta, i)]
+            if self._ignore:
+                [delattr(self._dicom_object, i) for i in self._ignore if hasattr(self._dicom_object, i)]
+                [delattr(self._dicom_object.file_meta, i) for i in self._ignore if hasattr(self._dicom_object.file_meta, i)]
             print(self._dicom_object.file_meta)
             print(self._dicom_object)
         else:
