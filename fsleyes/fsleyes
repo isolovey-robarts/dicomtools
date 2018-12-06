@@ -20,17 +20,15 @@ if [ -z "$VIRTUAL_ENV" ] ; then
     exit 1
 fi
 
-SYSTEM_FRAMEWORK_PYTHON_ROOT="/Library/Frameworks/Python.framework/Versions/$PYVER"
-
 PYSUBVER="$(python --version 2>&1 | cut -d ' ' -f2)"  # e.g., 2.7.10
 
 PYTHON_BINARY="bin/python$PYVER"
-FRAMEWORK_PYTHON="$SYSTEM_FRAMEWORK_PYTHON_ROOT/$PYTHON_BINARY"
-
-VENV_SITE_PACKAGES="$VIRTUAL_ENV/lib/python$PYVER/site-packages"
-
-# Ensure wx.pth is set up in the virtualenv
-#cp "/Library/Python/$PYVER/site-packages/wxredirect.pth" "$VENV_SITE_PACKAGES/wx.pth"
+if [[ $OSX ]]; then
+  SYSTEM_FRAMEWORK_PYTHON_ROOT="/Library/Frameworks/Python.framework/Versions/$PYVER"
+  FRAMEWORK_PYTHON="$SYSTEM_FRAMEWORK_PYTHON_ROOT/$PYTHON_BINARY"
+else
+  FRAMEWORK_PYTHON=$(which python)
+fi
 
 # Use the Framework Python to run the app
 export PYTHONHOME=$VIRTUAL_ENV
